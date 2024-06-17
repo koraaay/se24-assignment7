@@ -244,4 +244,51 @@ class DoublyLinkedListTest {
         Assertions.assertNull(list.getEnd().getNext());
         Assertions.assertSame(list.getEnd().getPrev().getNext(), list.getEnd());
     }
+
+    @Test
+    void testInsertElement(){
+        // given: the list is empty
+        Assertions.assertEquals(0, list.getLength());
+        // when: inserting an element
+        list.insert(new DoublyLinkedList.Element(0.9));
+        // then: the list has one element...
+        Assertions.assertEquals(1, list.getLength());
+        // ...and the new element is the start and end of the list
+        Assertions.assertEquals(0.9, list.getStart().getValue());
+        Assertions.assertEquals(0.9, list.getEnd().getValue());
+        // ...and the start and end pointers do not have predecessors or successors
+        Assertions.assertNull(list.getStart().getPrev());
+        Assertions.assertNull(list.getStart().getNext());
+        Assertions.assertNull(list.getEnd().getPrev());
+        Assertions.assertNull(list.getEnd().getNext());
+    }
+
+    @Test
+    void testInsertElementInMiddle(){
+        // given: the list has three elements
+        Assertions.assertTrue(list.isEmpty());
+        list.append(new double[]{0.2, 0.4, 0.8});
+        // when: inserting a new element in the middle
+        list.insert(new DoublyLinkedList.Element(0.5));
+        // then: the new element is placed in the right position
+        Assertions.assertArrayEquals(new double[]{0.2, 0.4, 0.5, 0.8}, list.asArray());
+    }
+
+    @Test
+    void testInsertDouble(){
+        // given: the list is empty
+        Assertions.assertEquals(0, list.getLength());
+        // when: inserting a double
+        list.insert(0.9);
+        // then: the list has one element...
+        Assertions.assertEquals(1, list.getLength());
+        // ...and the new element is the start and end of the list
+        Assertions.assertEquals(0.9, list.getStart().getValue());
+        Assertions.assertEquals(0.9, list.getEnd().getValue());
+        // ...and the start and end pointers do not have predecessors or successors
+        Assertions.assertNull(list.getStart().getPrev());
+        Assertions.assertNull(list.getStart().getNext());
+        Assertions.assertNull(list.getEnd().getPrev());
+        Assertions.assertNull(list.getEnd().getNext());
+    }
 }
